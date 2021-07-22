@@ -15,8 +15,8 @@ import org.hibernate.validator.constraints.Length;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;  // user id
 
 	@Column(name = "username", nullable = false, length = 30, unique = true)
 	@NotEmpty(message = "Please provide your User Name")
@@ -63,14 +63,14 @@ public class User {
 	/**
 	 * @return the id
 	 */
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
