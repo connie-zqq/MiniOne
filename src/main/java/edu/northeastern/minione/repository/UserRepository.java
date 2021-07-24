@@ -1,4 +1,4 @@
-package edu.northeastern.minione.repositories;
+package edu.northeastern.minione.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -7,9 +7,7 @@ import edu.northeastern.minione.model.User;
 
 /**
  * Create the interface UserRepository. 
- * 	Note that you will not provide any implementation for it. 
- * 	Spring Data JPA will implement it for you. 
- * 	This is part of the "magic" behind the "Spring Data" framework.
+ * The repositories allow us to access the information stored in the database.
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {

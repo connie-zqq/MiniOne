@@ -30,7 +30,7 @@ public class User {
 	@NotEmpty(message = "Please provide your last name")
 	private String lastName;
 
-	@Column(name = "email", nullable = false)
+	@Column(name = "email", nullable = false, unique = true)
 	@NotEmpty(message = "Please provide your email")
 	private String email;
 
@@ -101,7 +101,7 @@ public class User {
 	}
 
 	public void setLastName(String lastName) {
-		lastName = lastName;
+		this.lastName = lastName;
 	}
 
 	public String getEmail() {

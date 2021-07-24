@@ -25,12 +25,12 @@ public class LoginController {
      * @param loginForm
      * @return
      */
-    @RequestMapping("/users/login")
+    @RequestMapping("/user/login")
     public String login(LoginForm loginForm){
         // User doesn't need to re-enter credentials
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if ( (auth instanceof AnonymousAuthenticationToken) ) {
-            return "users/login";
+            return "user/login";
         } else {
             return "redirect:/";
         }
@@ -39,30 +39,31 @@ public class LoginController {
      * Display user's registration form
      * @return
      */
-    @RequestMapping("/users/register")
+    @RequestMapping("/user/register")
     public ModelAndView registration(){
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
         modelAndView.addObject(user);
-        modelAndView.setViewName("users/register");
+        modelAndView.setViewName("user/register");
         return modelAndView;
     }
 
-    @RequestMapping(value = "users/register", method = RequestMethod.POST)
+    @RequestMapping(value = "user/register", method = RequestMethod.POST)
     public ModelAndView registration(@Valid User user, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
         User userExists = this.userService.findByUserName(user.getUserName());
-        modelAndView.setViewName("users/register");
         if( userExists != null ){
-            bindingResult.rejectValue("userName", "error.user", "User exists");
+            modelAndView.setViewName("user/register");
+            bindingResult.rejectValue("userName", "error.user", "User exists, please try another name.");
         }
         if( !bindingResult.hasErrors() ){
             this.userService.create(user);
-            modelAndView.addObject("successMessage", "User has been created");
             modelAndView.addObject("user", new User());
+            modelAndView.setViewName("user/register_success");
+        } else {
+            modelAndView.setViewName("user/register");
         }
         return modelAndView;
     }
-
 
 }
