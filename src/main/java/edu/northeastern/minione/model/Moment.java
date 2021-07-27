@@ -1,4 +1,4 @@
-package edu.northeastern.minione.model;
+package edu.northeastern.minione.entity;
 
 import java.util.Date;
 
@@ -22,8 +22,8 @@ public class Moment {
     private int id;  // moment id
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_id", referencedColumnName = "id")
-    private User creator;
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    private User author;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "space_id", referencedColumnName = "id")
@@ -32,8 +32,11 @@ public class Moment {
     @Column(name = "moment_title", nullable = false)
     private String momentTitle;
 
-    @Column(name = "mement_content", columnDefinition = "TEXT", nullable = false)
+    @Column(name = "moment_content", columnDefinition = "TEXT", nullable = false)
     private String momentContent;
+
+    // Todo: add column - name="photo"
+    // Todo: add column - name="location"
 
     @Column(name = "created_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createdDate;
@@ -45,8 +48,8 @@ public class Moment {
         return id;
     }
 
-    public User getCreator() {
-        return creator;
+    public User getAuthor() {
+        return author;
     }
 
     public Space getSpace() {
@@ -69,8 +72,8 @@ public class Moment {
         this.id = id;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public void setSpace(Space space) {

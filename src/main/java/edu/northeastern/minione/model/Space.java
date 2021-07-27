@@ -1,6 +1,8 @@
-package edu.northeastern.minione.model;
+package edu.northeastern.minione.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,10 +26,12 @@ public class Space {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;  // space id
 
-    // To load it on-demand (i.e. lazily) when you call the space's getUserId() method
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_id", referencedColumnName = "id")
-    private User admin;
+    @ManyToMany(mappedBy = "followedSpaces", fetch = FetchType.LAZY)
+    private Set<User> followers = new HashSet<>();
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id", referencedColumnName = "id")
+    private User owner;
 
     @Column(name = "space_name", nullable = false)
     private String spaceName;
@@ -41,12 +46,23 @@ public class Space {
 
     }
 
+    public Space(int id, String spaceName, String spaceDescription) {
+        this.id = id;
+        this.spaceName = spaceName;
+        this.spaceDescription = spaceDescription;
+
+    }
+
     public int getId() {
         return id;
     }
 
-    public User getAdmin() {
-        return admin;
+    public Set<User> getFollowers() {
+        return followers;
+    }
+
+    public User getOwner() {
+        return owner;
     }
 
     public String getSpaceName() {
@@ -65,8 +81,12 @@ public class Space {
         this.id = id;
     }
 
-    public void setAdmin(User admin) {
-        this.admin = admin;
+    public void setFollowers(Set<User> followers) {
+        this.followers = followers;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public void setSpaceName(String spaceName) {
@@ -79,5 +99,16 @@ public class Space {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Space{" +
+                "id=" + id +
+                ", owner=" + owner +
+                ", spaceName='" + spaceName + '\'' +
+                ", spaceDescription='" + spaceDescription + '\'' +
+                ", createdDate=" + createdDate +
+                '}';
     }
 }
