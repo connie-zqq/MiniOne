@@ -10,7 +10,7 @@ import edu.northeastern.minione.model.User;
  * The repositories allow us to access the information stored in the database.
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Long> {
 	
 	User findByUserName(String userName);
 
