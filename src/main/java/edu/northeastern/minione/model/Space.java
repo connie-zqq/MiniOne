@@ -1,4 +1,4 @@
-package edu.northeastern.minione.entity;
+package edu.northeastern.minione.model;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -24,14 +24,14 @@ public class Space {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;  // space id
-
-    @ManyToMany(mappedBy = "followedSpaces", fetch = FetchType.LAZY)
-    private Set<User> followers = new HashSet<>();
+    private Long id;  // space id
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;
+
+    @ManyToMany(mappedBy = "followedSpaces", fetch = FetchType.LAZY)
+    private Set<User> followers = new HashSet<>();
 
     @Column(name = "space_name", nullable = false)
     private String spaceName;
@@ -46,14 +46,14 @@ public class Space {
 
     }
 
-    public Space(int id, String spaceName, String spaceDescription) {
+    public Space(Long id, String spaceName, String spaceDescription) {
         this.id = id;
         this.spaceName = spaceName;
         this.spaceDescription = spaceDescription;
 
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -77,7 +77,7 @@ public class Space {
         return createdDate;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

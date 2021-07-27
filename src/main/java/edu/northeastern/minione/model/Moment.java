@@ -1,4 +1,4 @@
-package edu.northeastern.minione.entity;
+package edu.northeastern.minione.model;
 
 import java.util.Date;
 
@@ -19,7 +19,7 @@ public class Moment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;  // moment id
+    private Long id;  // moment id
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", referencedColumnName = "id")
@@ -44,7 +44,7 @@ public class Moment {
     public Moment() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -68,7 +68,7 @@ public class Moment {
         return createdDate;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
