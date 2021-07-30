@@ -6,14 +6,15 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 /**
  * The Space model defines the structure/format in which the data has to be stored in the database "spaces".
@@ -26,12 +27,12 @@ public class Space {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;  // space id
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;
 
-    @ManyToMany(mappedBy = "followedSpaces", fetch = FetchType.LAZY)
-    private Set<User> followers = new HashSet<>();
+    @OneToMany(mappedBy = "followedSpace")
+    Set<Follow> follows = new HashSet<>();
 
     @Column(name = "space_name", nullable = false)
     private String spaceName;
@@ -39,8 +40,9 @@ public class Space {
     @Column(name = "space_description")
     private String spaceDescription;
 
-    @Column(name = "created_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date createdDate;
+    @Column(name = "created_date_time")
+    @CreationTimestamp
+    private Date createdDateTime;
 
     public Space() {
 
@@ -57,12 +59,16 @@ public class Space {
         return id;
     }
 
-    public Set<User> getFollowers() {
-        return followers;
-    }
-
     public User getOwner() {
         return owner;
+    }
+
+    public Set<Follow> getFollows() {
+        return follows;
+    }
+
+    public void setFollows(Set<Follow> follows) {
+        this.follows = follows;
     }
 
     public String getSpaceName() {
@@ -73,16 +79,12 @@ public class Space {
         return spaceDescription;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public Date getCreatedDateTime() {
+        return createdDateTime;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setFollowers(Set<User> followers) {
-        this.followers = followers;
     }
 
     public void setOwner(User owner) {
@@ -97,18 +99,15 @@ public class Space {
         this.spaceDescription = spaceDescription;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setCreatedDateTime(Date createdDateTime) {
+        this.createdDateTime = createdDateTime;
     }
 
     @Override
     public String toString() {
         return "Space{" +
-                "id=" + id +
-                ", owner=" + owner +
                 ", spaceName='" + spaceName + '\'' +
-                ", spaceDescription='" + spaceDescription + '\'' +
-                ", createdDate=" + createdDate +
-                '}';
+                ", spaceDescription='" + spaceDescription +
+                "'}";
     }
 }

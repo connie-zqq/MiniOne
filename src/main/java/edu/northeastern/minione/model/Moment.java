@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "moments")
 public class Moment {
@@ -21,7 +23,7 @@ public class Moment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;  // moment id
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private User author;
 
@@ -38,8 +40,9 @@ public class Moment {
     // Todo: add column - name="photo"
     // Todo: add column - name="location"
 
-    @Column(name = "created_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date createdDate;
+    @Column(name = "created_date_time")
+    @CreationTimestamp
+    private Date createdDateTime;
 
     public Moment() {
     }
@@ -64,8 +67,8 @@ public class Moment {
         return momentContent;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public Date getCreatedDateTime() {
+        return createdDateTime;
     }
 
     public void setId(Long id) {
@@ -88,7 +91,7 @@ public class Moment {
         this.momentContent = momentContent;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setCreatedDateTime(Date createdDateTime) {
+        this.createdDateTime = createdDateTime;
     }
 }
