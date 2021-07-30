@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8" http-equiv="refresh" content="3,url=user/userpage.html"/>
     <title>Registration Succeeded</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -21,7 +21,8 @@
         crossorigin="anonymous"></script>
 <div class="container text-center">
     <h3>You have signed up successfully!</h3>
-    <h4><a href="user/login.html" th:href="@{/user/login}">Click here to login</a></h4>
+    <h4>Automatically jump to login page after 3 seconds. If not ...</h4>
+    <h4><a href="user/userpage.html" th:href="@{/user/login}">Click here to login</a></h4>
 </div>
 </body>
 

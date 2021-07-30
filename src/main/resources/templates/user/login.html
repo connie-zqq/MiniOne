@@ -6,6 +6,7 @@
     <title>Login</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -19,12 +20,17 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+
 <div class="container text-center">
     <div>
         <h2>Login to the Blog</h2>
     </div>
-    <form method="post" th:action="@{/user/login}" class="form col-md-5 col-md-offset-7">
-        <div class="form-group">
+    <pre>
+
+    </pre>
+    <form method="post" th:action="@{/user/login}" style="max-width: 600px; margin: 0 auto;">
+        <div class="m-3">
+        <div class="form-group" >
             <label for="userName">User Name</label>
             <input type="text" id="userName" name="userName" class="form-control"/>
         </div><!-- User name -->
@@ -35,10 +41,12 @@
         </div><!-- Password -->
 
         <div class="form-group">
-            <input type="submit" class="btn btn-primary pull-right" value="Login"/>
+            <button type="submit" class="btn btn-primary">Login</button>
+
             <a href="register.html" th:href="@{/user/register}">[Go to Register]</a>
         </div><!-- Submit Button -->
         <div class="form-group alert alert-danger" th:if="${param.error}">User Name or Password invalid, please verify</div> <!-- Error message -->
+        </div>
     </form>
 </div>
 </body>

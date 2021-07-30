@@ -12,6 +12,7 @@ public interface UserService {
 
     boolean authentication(String userName, String password);
     List<User> findAllUsers();
+    Page<User> findAll(Pageable pageable);
     User findUserByUserName(String userName);
     Optional<User> findUserById(Long id);
     User createUser(User user);
