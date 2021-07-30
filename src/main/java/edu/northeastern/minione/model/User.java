@@ -14,9 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -53,7 +57,7 @@ public class User {
 	@NotEmpty(message = "Please provide your email")
 	private String email;
 
-	@Column(name = "password_hash", length = 60)
+	@Column(name = "password_hash", length = 60, nullable = false)
 	@Length(min = 6, message = "Your password must have at least 5 characters")
 	@NotEmpty(message = "Please provide your password")
 	private String passwordHash;

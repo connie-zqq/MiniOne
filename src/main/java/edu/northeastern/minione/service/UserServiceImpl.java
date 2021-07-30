@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import edu.northeastern.minione.model.User;
@@ -29,6 +31,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Page<User> findAll(Pageable pageable) {
+        return this.userRepository.findAll(pageable);
+    }
+
+    @Override
     public User findUserByUserName(String userName) {
         return this.userRepository.findByUserName(userName);
     }
@@ -40,6 +47,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
+        // Encode user's password before adding it to database
         user.setPasswordHash(bCryptPasswordEncoder.encode(user.getPasswordHash()));
         return this.userRepository.save(user);
     }
