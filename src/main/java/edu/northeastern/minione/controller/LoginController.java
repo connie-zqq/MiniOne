@@ -1,8 +1,7 @@
 package edu.northeastern.minione.controller;
 
-import edu.northeastern.minione.forms.LoginForm;
-import edu.northeastern.minione.model.User;
-import edu.northeastern.minione.service.UserService;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
+import edu.northeastern.minione.forms.LoginForm;
+import edu.northeastern.minione.model.User;
+import edu.northeastern.minione.service.UserService;
 
 @Controller
 public class LoginController {
@@ -51,13 +52,13 @@ public class LoginController {
     @RequestMapping(value = "user/register", method = RequestMethod.POST)
     public ModelAndView registration(@Valid User user, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
-        User userExists = this.userService.findByUserName(user.getUserName());
+        User userExists = this.userService.findUserByUserName(user.getUserName());
         if( userExists != null ){
             modelAndView.setViewName("user/register");
             bindingResult.rejectValue("userName", "error.user", "User exists, please try another name.");
         }
         if( !bindingResult.hasErrors() ){
-            this.userService.create(user);
+            this.userService.createUser(user);
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("user/register_success");
         } else {

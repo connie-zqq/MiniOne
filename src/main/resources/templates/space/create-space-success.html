@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Result</h1>
+<p th:text="'Space name: ' + ${space.spaceName}"></p>
+<p th:text="'Space description: ' + ${space.spaceDescription}"></p>
+<a href="/space/index">Your space homepage</a>
+</body>
+</html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Created Successfully</title>-->
+<!--    <style type="text/css">-->
+<!--    span {-->
+<!--        display: inline-block;-->
+<!--        width: 200px;-->
+<!--        text-align: left;-->
+<!--    }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div align="center">-->
+<!--    <h2>You Have Created Space Successfully!</h2>-->
+<!--    <span>Space Id:</span><span th:text="${space.id}"></span><br/>-->
+<!--    <span>Space Owner's Id:</span><span th:text="${space.owner.id}"></span><br/>-->
+<!--    <span>Space Name:</span><span th:text="${space.spaceName}"></span><br/>-->
+<!--    <span>Space Description: </span><span th:text="${space.spaceDescription}"></span><br/>-->
+<!--    <span>Created Date: </span><span th:text="${space.createdDate}"></span><br/>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

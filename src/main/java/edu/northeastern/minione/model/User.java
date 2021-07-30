@@ -1,10 +1,18 @@
 package edu.northeastern.minione.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -15,12 +23,23 @@ import org.hibernate.validator.constraints.Length;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;  // user id
 
 	@Column(name = "username", nullable = false, length = 30, unique = true)
 	@NotEmpty(message = "Please provide your User Name")
 	private String userName;
+
+	// To load it on-demand (i.e. lazily) when you call the space's getUserId() method
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@JoinTable(name = "follow",
+			joinColumns = {
+					@JoinColumn(name = "user_id", referencedColumnName = "id",
+							nullable = false, updatable = false)},
+			inverseJoinColumns = {
+					@JoinColumn(name = "space_id", referencedColumnName = "id",
+							nullable = false, updatable = false)})
+	private Set<Space> followedSpaces = new HashSet<>();
 
 	@Column(name = "first_name", nullable = false)
 	@NotEmpty(message = "Please provide your first name")
@@ -60,68 +79,58 @@ public class User {
 		this.email = email;
 	}
 
-	/**
-	 * @return the id
-	 */
 	public Long getId() {
 		return id;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the userName
-	 */
 	public String getUserName() {
 		return userName;
 	}
 
-	/**
-	 * @param userName the userName to set
-	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public Set<Space> getFollowedSpaces() {
+		return followedSpaces;
 	}
 
 	public String getFirstName() {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
 	public String getLastName() {
 		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/**
-	 * @return the passwordHash
-	 */
 	public String getPasswordHash() {
 		return passwordHash;
 	}
 
-	/**
-	 * @param passwordHash the passwordHash to set
-	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public void setFollowedSpaces(Set<Space> followedSpaces) {
+		this.followedSpaces = followedSpaces;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
