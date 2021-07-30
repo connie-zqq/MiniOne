@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
 
-</body>
+<main id="space">
+    <article>
+        <h2 class="title" th:text="${spaceName}"></h2>
+        <p class="content" th:utext="${spaceDescription}"></p>
+        <h4><a th:href="@{'/space/delete-space/' + ${spaceId}}">Go to your space</a></h4>
+    </article>
+</main>
+
 </html>

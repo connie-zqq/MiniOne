@@ -1,57 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Create Your MiniOne Space</title>
+    <title>Create Space</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+
 <body>
-<h1>Create Your Space</h1>
-<form action="#" th:action="@{/space/create-space}" th:object="${space}" method="post">
-    <p>Space Name: <input type="text" th:field="*{spaceName}" /></p>
-    <p>Space Description: <input type="text" th:field="*{spaceDescription}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-</form>
+<header></header>
+
+<h2>Create Space</h2>
+
+<div class="container row" align="center">
+    <form action="#" th:action="@{/space/create-space}" th:object="${space}" method="post" class="form col-md-5 col-md-offset-7">
+        <div class="form-group">
+            <label>Space Name</label>
+            <input type="text" th:field="*{spaceName}" th:class="${#fields.hasErrors('spaceName') ? 'form-control is-invalid' : 'form-control'}" />
+            <div th:if="${#fields.hasErrors('spaceName')}" th:errors="*{spaceName}" class="invalid-feedback"></div>
+        </div><!-- Space Name -->
+        <div class="form-group">
+            <label>Space Description</label>
+            <textarea rows="5" cols="" th:field="*{spaceDescription}" th:class="${#fields.hasErrors('spaceDescription') ? 'form-control is-invalid' : 'form-control'}" ></textarea>
+            <div th:if="${#fields.hasErrors('owner')}" th:errors="*{owner}" class="invalid-feedback"></div>
+        </div><!-- Space Description -->
+        <div class="form-group clearfix">
+            <button type="submit" class="btn btn-primary float-right">Submit</button>
+        </div><!-- Submit Button -->
+    </form>
+</div>
+
+<footer></footer>
 </body>
+
 </html>
 
 
-
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-
-<!--<head>-->
-<!--    <title>Create Space</title>-->
-<!--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
-<!--</head>-->
-
-<!--<body>-->
-<!--<header></header>-->
-
-<!--<h2>Create Space</h2>-->
-
-<!--<div class="container row" align="center">-->
-<!--    <form action="#" th:action="@{/space/create-space}" th:object="${space}" method="post" class="form col-md-5 col-md-offset-7">-->
-<!--        <div class="form-group">-->
-<!--            <label>Space Name</label>-->
-<!--            <input type="text" th:field="*{spaceName}" th:class="${#fields.hasErrors('spaceName') ? 'form-control is-invalid' : 'form-control'}" />-->
-<!--            <div th:if="${#fields.hasErrors('spaceName')}" th:errors="*{spaceName}" class="invalid-feedback"></div>-->
-<!--        </div>&lt;!&ndash; Space Name &ndash;&gt;-->
-<!--        <div class="form-group">-->
-<!--            <label>Space Description</label>-->
-<!--            <textarea rows="5" cols="" th:field="*{spaceDescription}" th:class="${#fields.hasErrors('spaceDescription') ? 'form-control is-invalid' : 'form-control'}" ></textarea>-->
-<!--            <div th:if="${#fields.hasErrors('spaceDescription')}" th:errors="*{spaceDescription}" class="invalid-feedback"></div>-->
-<!--            <div th:if="${#fields.hasErrors('owner')}" th:errors="*{owner}" class="invalid-feedback"></div>-->
-<!--        </div>&lt;!&ndash; Space Description &ndash;&gt;-->
-<!--        <div class="form-group clearfix">-->
-<!--            <button type="submit" class="btn btn-primary float-right">Create Space</button>-->
-<!--        </div>&lt;!&ndash; Submit Button &ndash;&gt;-->
-<!--        <div class="form-group">-->
-<!--            <div th:class="${successMessage} ? 'alert alert-success' : ''" th:text="${successMessage}"></div>-->
-<!--        </div>&lt;!&ndash; Success message &ndash;&gt;-->
-<!--    </form>-->
-<!--</div>-->
-
-<!--<footer></footer>-->
-<!--</body>-->
-
-<!--</html>-->
