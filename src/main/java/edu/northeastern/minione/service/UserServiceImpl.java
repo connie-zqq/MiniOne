@@ -1,16 +1,17 @@
 package edu.northeastern.minione.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import edu.northeastern.minione.model.User;
 import edu.northeastern.minione.repository.UserRepository;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -21,7 +22,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean authentication(String userName, String password) {
-
         return false;
     }
 
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> findAll(Pageable pageable) {
+    public Page<User> findAllUsers(Pageable pageable) {
         return this.userRepository.findAll(pageable);
     }
 
@@ -41,15 +41,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findUserById(Long id) {
-        return this.userRepository.findById(id);
+    public User findUserById(Long id) {
+        return this.userRepository.findById(id).orElse(null);
     }
 
     @Override
-    public User createUser(User user) {
+    public void createUser(User user) {
         // Encode user's password before adding it to database
         user.setPasswordHash(bCryptPasswordEncoder.encode(user.getPasswordHash()));
-        return this.userRepository.save(user);
+        this.userRepository.save(user);
     }
 
     @Override
