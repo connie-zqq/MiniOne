@@ -1,18 +1,23 @@
 package edu.northeastern.minione.service;
 
 import java.util.List;
-import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import edu.northeastern.minione.model.Moment;
 import edu.northeastern.minione.model.Space;
+
 
 public interface MomentService {
 
     List<Space> findAllSpaces();
 
-    Optional<Space> findSpaceById(Long id);
+    Page<Space> findAllSpaces(Pageable pageable);
 
-    Space createSpace(Space space);
+    Space findSpaceById(Long id);
+
+    void createSpace(Space space);
 
     Space editSpace(Space space);
 
@@ -20,9 +25,13 @@ public interface MomentService {
 
     List<Moment> findAllMoments();
 
-    Optional<Moment> findMomentById(Long id);
+    Page<Moment> findAllMoments(Pageable pageable);
 
-    Moment createMoment(Moment moment);
+    Page<Moment> findAllMomentsBySpaceId(Long spaceId, Pageable pageable);
+
+    Moment findMomentById(Long id);
+
+    void createMoment(Moment moment);
 
     Moment editMoment(Moment moment);
 

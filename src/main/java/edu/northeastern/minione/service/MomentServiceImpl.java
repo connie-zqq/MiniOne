@@ -1,15 +1,19 @@
 package edu.northeastern.minione.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import edu.northeastern.minione.model.Moment;
 import edu.northeastern.minione.model.Space;
+import edu.northeastern.minione.repository.FollowRepository;
 import edu.northeastern.minione.repository.MomentRepository;
 import edu.northeastern.minione.repository.SpaceRepository;
 
+@Service
 public class MomentServiceImpl implements MomentService {
 
     @Autowired
@@ -18,19 +22,27 @@ public class MomentServiceImpl implements MomentService {
     @Autowired
     MomentRepository momentRepository;
 
+    @Autowired
+    FollowRepository followRepository;
+
     @Override
     public List<Space> findAllSpaces() {
         return this.spaceRepository.findAll();
     }
 
     @Override
-    public Optional<Space> findSpaceById(Long id) {
-        return this.spaceRepository.findById(id);
+    public Page<Space> findAllSpaces(Pageable pageable) {
+        return this.spaceRepository.findAll(pageable);
     }
 
     @Override
-    public Space createSpace(Space space) {
-        return this.spaceRepository.save(space);
+    public Space findSpaceById(Long id) {
+        return this.spaceRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void createSpace(Space space) {
+        this.spaceRepository.save(space);
     }
 
     @Override
@@ -49,13 +61,23 @@ public class MomentServiceImpl implements MomentService {
     }
 
     @Override
-    public Optional<Moment> findMomentById(Long id) {
-        return this.momentRepository.findById(id);
+    public Page<Moment> findAllMoments(Pageable pageable) {
+        return this.momentRepository.findAll(pageable);
     }
 
     @Override
-    public Moment createMoment(Moment moment) {
-        return this.momentRepository.save(moment);
+    public Page<Moment> findAllMomentsBySpaceId(Long spaceId, Pageable pageable) {
+        return this.momentRepository.findAllBySpaceId(spaceId, pageable);
+    }
+
+    @Override
+    public Moment findMomentById(Long id) {
+        return this.momentRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void createMoment(Moment moment) {
+        this.momentRepository.save(moment);
     }
 
     @Override
