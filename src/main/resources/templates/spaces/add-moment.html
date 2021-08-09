@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Add moment</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 </head>
 
@@ -14,21 +15,28 @@
 <h2>Create Your Moment</h2>
 
 <div class="container row" align="center">
-    <form action="#" th:action="@{/moment/add-moment}" th:object="${moment}" method="post" class="form col-md-5 col-md-offset-7">
+    <form th:action="@{'/spaces/' + ${spaceId} + '/moments/add-moment'}" th:object="${moment}" method="post"
+          enctype="multipart/form-data" class="form col-md-5 col-md-offset-7">
         <!-- set the enctype=”multipart/form-data” form the form tag, to tell the browser that this form may contain file upload -->
         <div class="form-group">
             <label>Moment Title</label>
-            <input type="text" th:field="*{momentTitle}" th:class="${#fields.hasErrors('momentTitle') ? 'form-control is-invalid' : 'form-control'}" />
+            <input type="text" th:field="*{momentTitle}"
+                   th:class="${#fields.hasErrors('momentTitle') ? 'form-control is-invalid' : 'form-control'}"/>
             <div th:if="${#fields.hasErrors('momentTitle')}" th:errors="*{momentTitle}" class="invalid-feedback"></div>
         </div><!-- Moment Title -->
         <div class="form-group">
             <label>Moment Content</label>
-            <textarea rows="5" cols="" th:field="*{momentContent}" th:class="${#fields.hasErrors('mo') ? 'form-control is-invalid' : 'form-control'}" ></textarea>
+            <textarea rows="5" cols="" th:field="*{momentContent}"
+                      th:class="${#fields.hasErrors('momentContent') ? 'form-control is-invalid' : 'form-control'}"></textarea>
             <div th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="invalid-feedback"></div>
         </div><!-- Moment Content -->
+                <div class="form-group">
+                    <label>Photos to Upload </label>
+                    <input type="file" name="image" accept=".jpg, .jpeg, .png" />
+                </div><!-- Photos -->
 <!--        <div class="form-group">-->
-<!--            <label>Photos</label>-->
-<!--            <input type="file" name="image" accept="image/png, image/ipeg" />-->
+<!--            <label>Photos to Upload </label>-->
+<!--            <input type="file" name="images" accept=".jpg, .jpeg, .png" multiple/>-->
 <!--        </div>&lt;!&ndash; Photos &ndash;&gt;-->
         <div class="form-group clearfix">
             <button type="submit" class="btn btn-primary float-right">Submit</button>
