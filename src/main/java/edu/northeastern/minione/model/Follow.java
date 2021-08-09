@@ -1,6 +1,9 @@
 package edu.northeastern.minione.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,6 +29,18 @@ public class Follow {
     @ManyToOne
     @JoinColumn(name = "followed_space_id", referencedColumnName = "id")
     private Space followedSpace;
+
+  // Todo: user role: Admin (mom, dad); Edit (grandma, grandpa)； nickname in th space
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private FamilyRole role;
+
+    @Column(name = "nickname")
+    private String nickName;
+
+    public Follow() {
+
+    }
 
     public Follow(User follower, Space followedSpace) {
         this.follower = follower;
@@ -54,5 +69,21 @@ public class Follow {
 
     public void setFollowedSpace(Space followedSpace) {
         this.followedSpace = followedSpace;
+    }
+
+    public FamilyRole getRole() {
+        return role;
+    }
+
+    public void setRole(FamilyRole role) {
+        this.role = role;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 }
