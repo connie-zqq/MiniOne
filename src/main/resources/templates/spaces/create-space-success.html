@@ -18,11 +18,18 @@
     <span>Space Owner's username:</span><span th:text="${spaceOwnerUserName}"></span><br/>
     <span>Space Name:</span><span th:text="${spaceName}"></span><br/>
     <span>Space Description: </span><span th:text="${spaceDescription}"></span><br/>
+    <span>Baby Name: </span><span th:text="${babyName}"></span><br/>
+    <span>Baby's Gender: </span><span th:text="${babyGender}"></span><br/>
+    <span>Baby's Birthday: </span><span th:text="${babyBirthday}"></span><br/>
+    <span>Place of Residence: </span><span th:text="${babyResidence}"></span><br/>
     <span>Created at: </span><span th:text="${spaceCreatedDateTime}"></span><br/>
 </div>
 
 <div class="link">
-    <h4><a th:href="@{'/space/' + ${spaceId}}">Go to your space</a></h4>
+    <h4><a th:href="@{'/spaces/' + ${spaceId}}">Go to your space</a></h4>
+</div>
+<div class="link">
+    <h4><a th:href="@{'/follows/' + ${userId}}">Check your followed spaces</a></h4>
 </div>
 </body>
 
