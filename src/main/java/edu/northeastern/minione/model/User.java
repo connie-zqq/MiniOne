@@ -5,18 +5,15 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -46,7 +43,7 @@ public class User {
 	@NotEmpty(message = "Please provide your password")
 	private String passwordHash;
 
-	@OneToMany(mappedBy = "follower")
+	@OneToMany(mappedBy = "follower", fetch = FetchType.LAZY)
 	Set<Follow> follows = new HashSet<>();
 
 	/**

@@ -64,7 +64,6 @@ public class Space {
     @CreationTimestamp
     private Date createdDateTime;
 
-    // Todo: baby birthday
     // Todo: height, weight
 
     public Space() {
