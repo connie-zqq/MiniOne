@@ -5,8 +5,11 @@
     <article>
         <h2 class="title" th:text="${spaceName}"></h2>
         <p class="content" th:utext="${spaceDescription}"></p>
-        <h4><a th:href="@{'/space/delete-space/' + ${spaceId}}">Go to your space</a></h4>
     </article>
+
+    <div class="link">
+        <h4><a th:href="@{'/moment/add-moment'}">Create Moment</a></h4>
+    </div>
 </main>
 
 </html>
