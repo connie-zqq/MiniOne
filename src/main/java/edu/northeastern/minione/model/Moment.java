@@ -1,6 +1,7 @@
 package edu.northeastern.minione.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -27,17 +29,19 @@ public class Moment {
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private User author;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "space_id", referencedColumnName = "id")
     private Space space;
 
-    @Column(name = "moment_title", nullable = false)
+    @OneToMany (mappedBy = "moment", fetch = FetchType.LAZY)
+    private List<AmazonImage> photos;
+
+    @Column(name = "moment_title")
     private String momentTitle;
 
     @Column(name = "moment_content", columnDefinition = "TEXT", nullable = false)
     private String momentContent;
 
-    // Todo: add column - name="photo"
     // Todo: add column - name="location"
 
     @Column(name = "created_date_time")
@@ -51,44 +55,52 @@ public class Moment {
         return id;
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
-    public Space getSpace() {
-        return space;
-    }
-
-    public String getMomentTitle() {
-        return momentTitle;
-    }
-
-    public String getMomentContent() {
-        return momentContent;
-    }
-
-    public Date getCreatedDateTime() {
-        return createdDateTime;
-    }
-
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getAuthor() {
+        return author;
     }
 
     public void setAuthor(User author) {
         this.author = author;
     }
 
+    public List<AmazonImage> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<AmazonImage> photos) {
+        this.photos = photos;
+    }
+
+    public Space getSpace() {
+        return space;
+    }
+
     public void setSpace(Space space) {
         this.space = space;
+    }
+
+    public String getMomentTitle() {
+        return momentTitle;
     }
 
     public void setMomentTitle(String momentTitle) {
         this.momentTitle = momentTitle;
     }
 
+    public String getMomentContent() {
+        return momentContent;
+    }
+
     public void setMomentContent(String momentContent) {
         this.momentContent = momentContent;
+    }
+
+    public Date getCreatedDateTime() {
+        return createdDateTime;
     }
 
     public void setCreatedDateTime(Date createdDateTime) {
