@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,15 +19,24 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 
 import edu.northeastern.minione.model.AmazonImage;
 import edu.northeastern.minione.model.Moment;
+import edu.northeastern.minione.model.Space;
+import edu.northeastern.minione.model.User;
 import edu.northeastern.minione.repository.AmazonImageRepository;
+import edu.northeastern.minione.repository.SpaceRepository;
+import edu.northeastern.minione.repository.UserRepository;
 import edu.northeastern.minione.util.FileUploadUtil;
 
 /**
- * This is a service to send images to Amazon S3 Bucket.
- *
+ * This is the AmazonS3ImageService class, which used to send images to Amazon S3 Bucket.
  */
 @Service
 public class AmazonS3ImageService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private SpaceRepository spaceRepository;
 
     @Autowired
     private AmazonImageRepository amazonImageRepository;
@@ -37,18 +44,20 @@ public class AmazonS3ImageService {
     @Autowired
     private AmazonClientService amazonClientService;
 
-    public AmazonImage uploadImageToS3(MultipartFile multipartFile, Moment moment) throws IOException {
+    /**
+     * Upload the moment image(s) to S3 bucket.
+     *
+     * @param multipartFile an uploaded file received in a multipart request
+     * @param moment        the Moment object
+     * @return AmazonImage the AmazonImage object
+     * @throws IOException if an I/O error occurs
+     */
+    public AmazonImage uploadMomentImageToS3(MultipartFile multipartFile, Moment moment) throws IOException {
 
-        String fileName = "";
-
-        // create an array list of valid extensions
-        List<String> validExtensions = Arrays.asList("png", "jpg", "jpeg");
-
-        // get the extension of the multipartFile (using FilenameUtils of org.apache.commons.io)
-        String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+        String objectKey = "";
 
         // if the extension of the file is not valid
-        if (!validExtensions.contains(extension)) {
+        if (!FileUploadUtil.isValidImageFileExtension(multipartFile)) {
             throw new InvalidImageFormatException("Invalid Image Extension! Please Try Again!");
         }
 
@@ -58,36 +67,112 @@ public class AmazonS3ImageService {
             File file = FileUploadUtil.convertMultipartToFile(multipartFile);
 
             // generate the file name (object key) to be uploaded to S3
-            fileName = FileUploadUtil.generateFileName(multipartFile);
+            objectKey = FileUploadUtil.generateFileName(multipartFile);
 
             // upload file to S3
-            uploadPublicFileToS3(fileName, file);
+            uploadPublicFileToS3(objectKey, file);
 
             // delete the file
             file.delete();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         // Save image information on MySQL server and return them
         AmazonImage amazonImage = new AmazonImage();
-        amazonImage.setObjectKey(fileName);
+        amazonImage.setObjectKey(objectKey);
         amazonImage.setMoment(moment);
 
         return this.amazonImageRepository.save(amazonImage);
     }
 
     /**
+     * Upload the user profile image to S3.
+     *
+     * @param multipartFile an uploaded file received in a multipart request
+     * @param user          the User object
+     * @throws IOException if an I/O error occurs
+     */
+    public void uploadUserProfileImageToS3(MultipartFile multipartFile, User user) throws IOException {
+
+        String objectKey = "";
+
+        // if the extension of the file is not valid
+        if (!FileUploadUtil.isValidImageFileExtension(multipartFile)) {
+            throw new InvalidImageFormatException("Invalid Image Extension! Please Try Again!");
+        }
+
+        try {
+            // the multipartFile has invalid extension
+            // convert multipartFile to file
+            File file = FileUploadUtil.convertMultipartToFile(multipartFile);
+
+            // generate the file name (object key) to be uploaded to S3
+            objectKey = FileUploadUtil.generateFileName(multipartFile);
+
+            // upload file to S3
+            uploadPublicFileToS3(objectKey, file);
+
+            // delete the file
+            file.delete();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Save image information on MySQL server and return them
+        user.setUserImageObjectKey(objectKey);
+        this.userRepository.save(user);
+    }
+
+    /**
+     * Upload the baby profile image to S3.
+     *
+     * @param multipartFile an uploaded file received in a multipart request
+     * @param space         the Space object
+     * @throws IOException if an I/O error occurs
+     */
+    public void uploadBabyProfileImageToS3(MultipartFile multipartFile, Space space) throws IOException {
+
+        String objectKey = "";
+
+        // if the extension of the file is not valid
+        if (!FileUploadUtil.isValidImageFileExtension(multipartFile)) {
+            throw new InvalidImageFormatException("Invalid Image Extension! Please Try Again!");
+        }
+
+        try {
+            // the multipartFile has invalid extension
+            // convert multipartFile to file
+            File file = FileUploadUtil.convertMultipartToFile(multipartFile);
+
+            // generate the file name (object key) to be uploaded to S3
+            objectKey = FileUploadUtil.generateFileName(multipartFile);
+
+            // upload file to S3
+            uploadPublicFileToS3(objectKey, file);
+
+            // delete the file
+            file.delete();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Save image information on MySQL server and return them
+        space.setBabyImageObjectKey(objectKey);
+        this.spaceRepository.save(space);
+    }
+
+    /**
      * Upload a list of images to AWS S3 bucket.
      *
-     * @param images
-     * @return
+     * @param images the list of the images
+     * @return the list of AmazonImage objects
      */
     public List<AmazonImage> uploadImages(List<MultipartFile> images, Moment moment) {
         List<AmazonImage> amazonImages = new ArrayList<>();
         images.forEach(image -> {
             try {
-                amazonImages.add(uploadImageToS3(image, moment));
+                amazonImages.add(uploadMomentImageToS3(image, moment));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -100,7 +185,7 @@ public class AmazonS3ImageService {
      * S3 bucket cannot delete file by url. It requires a bucket name and a file name,
      * that’s why we retrieved file name from url.
      *
-     * @param amazonImage
+     * @param amazonImage the AmazonImage object
      */
     public void deleteImageFromS3(AmazonImage amazonImage) {
         String ObjectKey = amazonImage.getObjectKey();
@@ -109,10 +194,10 @@ public class AmazonS3ImageService {
     }
 
     /**
-     * Upload file to S3 bucket.
+     * Upload public file to S3 bucket.
      *
-     * @param fileName
-     * @param file
+     * @param fileName the fileName of the file to be uploaded
+     * @param file     file
      */
     public void uploadPublicFileToS3(String fileName, File file) {
         amazonClientService.getS3client().putObject(new PutObjectRequest(amazonClientService.getBucketName(), fileName, file));
@@ -121,11 +206,15 @@ public class AmazonS3ImageService {
     /**
      * Generate the pre-signed url of the file to be uploaded.
      *
-     * @param objectKey The object key (or key name) uniquely identifies the object in an Amazon S3 bucket.
-     * @return
+     * @param objectKey The object key (or key name) uniquely identifies the object in an Amazon S3 bucket
+     * @return the pre-signed url of the file to be uploaded
      */
     public URL getGeneratePresignedUrl(String objectKey) {
-        // Set the presigned URL to expire after one hour.
+        if (objectKey == null) {
+            return null;
+        }
+
+        // Set the pre-signed URL to expire after one hour.
         java.util.Date expiration = new java.util.Date();
         long expTimeMillis = Instant.now().toEpochMilli();
         expTimeMillis += 1000 * 60 * 60;

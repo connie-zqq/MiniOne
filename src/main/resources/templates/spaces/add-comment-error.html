@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error When Adding Comment</title>
+    <style type="text/css">
+    span {
+        display: inline-block;
+        width: 200px;
+        text-align: left;
+    }
+
+    </style>
+</head>
+
+<body style="background-color:powderblue;">
+<div class="container text-center">
+
+    <h3>Please enter the correct details</h3>
+    <table>
+        <tr>
+            <td><a th:href="@{'/spaces/' + ${spaceId} +'/moments/' + ${momentId} + '/add-comments'}">Retry</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+
+</html>

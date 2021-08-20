@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head th:fragment="site-header">
+    <meta charset="UTF-8">
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
+</head>
+<link href="https://getbootstrap.com/docs/5.0/examples/sticky-footer-navbar/" rel="canonical">
+<link href="/css/styles.css" rel="stylesheet"/>
+
+</head>
+<body class="d-flex flex-column h-100" style="background-color:powderblue;">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-warning" th:fragment="site-header">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html" th:href="@{/}">MiniOne</a>
+        <button aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler"
+                data-bs-target="#navbarCollapse" data-bs-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <div sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link active" href="index.html" th:href="@{/}">Home</a>
+                    </li>
+                </div>
+
+                <div sec:authorize="isAuthenticated()">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link active" href="#" th:href="@{'/follows/' + ${userId}}">Babies</a>
+                    </li>
+                </div>
+
+                <div sec:authorize="isAuthenticated()">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link active" href="index.html"
+                           th:href="@{/spaces/create-space}">Create Space</a>
+                    </li>
+                </div>
+            </ul>
+            <!--<img src="" th:src="@{/img/logo_transparent.png}" align="middle" alt="" class="center"/>-->
+            <div id="logged-in-info">
+                <div sec:authorize="isAuthenticated()">
+                    <span class="text-white"> Hello, <b sec:authentication="name"></b></span>
+                    <a ref="#" th:href="@{/users/logout}"><span class="fa fa-sign-out"></span>&nbsp;[Logout]</a>
+                </div><!--show the username, user log out option -->
+
+                <div sec:authorize="!isAuthenticated()">
+                    <form>
+                        <a class="btn btn-outline-success" href="users/login.html" role="button"
+                           th:href="@{/users/login}">Login</a>
+                        <a class="btn btn-outline-success" href="users/register.html" role="button"
+                           th:href="@{/users/register}">Register</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<footer class="footer-container" style="text-align: center;" th:fragment="site-footer">
+    <p>© 2021 MiniOne developed by Qiangqiang Zhang and Shujun Xiao.</p>
+</footer>
+
+</body>
+
+<script crossorigin="anonymous"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>

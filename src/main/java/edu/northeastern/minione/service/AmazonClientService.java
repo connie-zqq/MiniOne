@@ -12,6 +12,13 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
+
+/**
+ * This is the amazonClientService class.
+ * To make requests to AWS, we need to first create a service client object.
+ * <p>
+ * Ref: https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/creating-clients.html
+ */
 @Service
 public class AmazonClientService {
 
@@ -51,14 +58,16 @@ public class AmazonClientService {
 
     /**
      * Set Amazon credentials to Amazon client.
-     *
+     * <p>
      * Notice: Annotation @PostConstruct is needed to run this method after constructor will be called, because
      * class fields marked with @Value annotation is null in the constructor.
      */
     @PostConstruct
     public void initializeAmazon() {
+
         // Init your AmazonS3 credentials using BasicAWSCredentials
         AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
+
         // Start the client using AmazonS3ClientBuilder
         this.s3client = AmazonS3ClientBuilder.standard()
                 .withRegion(Regions.US_WEST_1)

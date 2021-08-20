@@ -90,6 +90,13 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.11</version>
         </dependency>
+        <!-- The H2 DB is our in-memory database. It eliminates the need for configuring and starting an actual database for test purposes. -->
+        <!--  http://www.baeldung.com/spring-boot-testing -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
         <!-- For AWS storage -->
         <dependency>
             <groupId>com.amazonaws</groupId>
@@ -115,12 +122,11 @@
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity4</artifactId>
         </dependency>
-        <!-- The H2 DB is our in-memory database. It eliminates the need for configuring and starting an actual database for test purposes. -->
-        <!--  http://www.baeldung.com/spring-boot-testing -->
+        <!-- Spring Boot Mail service -->
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>test</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+            <version>2.5.3</version>
         </dependency>
         <dependency>
             <groupId>javax.xml.bind</groupId>
@@ -136,10 +142,16 @@
             <artifactId>guava</artifactId>
             <version>30.1.1-jre</version>
         </dependency>
+        <!-- word cloud-->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>com.kennycason</groupId>
+            <artifactId>kumo-core</artifactId>
+            <version>1.28</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.projectlombok</groupId>-->
+<!--            <artifactId>lombok</artifactId>-->
+<!--        </dependency>-->
 
     </dependencies>
 

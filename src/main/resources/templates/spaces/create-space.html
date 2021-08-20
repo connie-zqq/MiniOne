@@ -5,67 +5,91 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Space</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" rel="stylesheet">
+    <style>
+        .style1 {
+          margin-top: 12%;
+        }
 
+        .footer-container {
+          color: #EAF6F6;
+          padding-top: 20%;
+        }
+
+        .copyright {
+          color: #EAF6F6;
+          width: 100%;
+          margin-top: 20px;
+          padding: 20px 0;
+        }
+
+    </style>
 </head>
 
-<body>
-<header></header>
+<body style="background-color:powderblue;">
+<div>
+    <nav th:replace="layout2::site-header"></nav>
+</div>
 
-
-<div class="container text-center">
-
+<div class="container text-center style1">
     <h2>Create Your Space</h2>
-    <form action="#" th:action="@{/spaces/create-space}" th:object="${space}" method="post" style="max-width: 600px; margin: 0 auto;">
+    <form action="#" enctype="multipart/form-data" method="post" style="max-width: 600px; margin: 0 auto;"
+          th:action="@{/spaces/create-space}" th:object="${space}">
         <div class="form-group">
             <label>Space Name</label>
-            <input type="text" th:field="*{spaceName}" th:class="${#fields.hasErrors('spaceName') ? 'form-control is-invalid' : 'form-control'}"/>
-            <div th:if="${#fields.hasErrors('spaceName')}" th:errors="*{spaceName}" class="invalid-feedback"></div>
+            <input th:class="${#fields.hasErrors('spaceName') ? 'form-control is-invalid' : 'form-control'}" th:field="*{spaceName}"
+                   type="text"/>
+            <div class="invalid-feedback" th:errors="*{spaceName}" th:if="${#fields.hasErrors('spaceName')}"></div>
         </div><!-- Space Name -->
         <div class="form-group">
             <label>Space Description</label>
-            <textarea rows="5" cols="" th:field="*{spaceDescription}"
-                      th:class="${#fields.hasErrors('spaceDescription') ? 'form-control is-invalid' : 'form-control'}"></textarea>
-            <div th:if="${#fields.hasErrors('owner')}" th:errors="*{owner}" class="invalid-feedback"></div>
+            <textarea cols="" rows="5" th:class="${#fields.hasErrors('spaceDescription') ? 'form-control is-invalid' : 'form-control'}"
+                      th:field="*{spaceDescription}"></textarea>
+            <div class="invalid-feedback" th:errors="*{owner}" th:if="${#fields.hasErrors('owner')}"></div>
         </div><!-- Space Description -->
         <div class="form-group">
             <label>Baby Name</label>
-            <input type="text" th:field="*{babyName}" th:class="${#fields.hasErrors('babyName') ? 'form-control is-invalid' : 'form-control'}"/>
-            <div th:if="${#fields.hasErrors('babyName')}" th:errors="*{babyName}" class="invalid-feedback"></div>
+            <input th:class="${#fields.hasErrors('babyName') ? 'form-control is-invalid' : 'form-control'}" th:field="*{babyName}"
+                   type="text"/>
+            <div class="invalid-feedback" th:errors="*{babyName}" th:if="${#fields.hasErrors('babyName')}"></div>
         </div><!-- Baby Name -->
         <div class="form-group">
             <label>Baby Gender</label>
-            <input type="radio" th:field="*{babyGender}" value="Male" />Male
-            <input type="radio" th:field="*{babyGender}" value="Female" />Female<br/>
+            <input th:field="*{babyGender}" type="radio" value="Male"/>Male
+            <input th:field="*{babyGender}" type="radio" value="Female"/>Female<br/>
         </div><!-- Baby Gender -->
         <div class="form-group">
             <label>BabyBirthday:</label>
-<!--                <input type="date" name="date" id="birthdate"  autocomplete="off" th:field="*{babyBirthday}"/>-->
-<!--                <input type="date" class="form-control" name="babyBirthday" th:value="${#dates.format(babyBirthday, 'yyyy-MM-dd')}"/>-->
-<!--            placeholder="yyyy/mm/dd"/>-->
-            <input type="text" th:field="*{{babyBirthday}}" placeholder="yyyy/mm/dd"/>
+            <input placeholder="yyyy/mm/dd" th:field="*{{babyBirthday}}" type="text"/>
         </div><!-- Baby Birthday -->
         <div class="form-group">
             <label>Place of Residence (Los Angeles, CA, USA)</label>
-            <input type="text" th:field="*{babyResidence}" /><br/>
+            <input th:field="*{babyResidence}" type="text"/><br/>
         </div><!-- Baby Residence -->
+        <div class="form-group">
+            <label>Baby Profile Photo to Upload: </label>
+            <input accept=".jpg, .jpeg, .png" name="image" type="file"/>
+        </div><!-- User Profile Photos -->
         <div class="form-group clearfix">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button class="btn btn-primary" type="submit">Submit</button>
         </div><!-- Submit Button -->
     </form>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"
-        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-        crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.1/cjs/popper.min.js"
-        integrity="sha256-T3bYsIPyOLpEfeZOX4M7J59ZoDMzuYFUsPiSN3Xcc2M=" crossorigin="anonymous"></script>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
+<footer th:replace="layout2::site-footer"></footer>
 
 </body>
+
+<script crossorigin="anonymous"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script crossorigin="anonymous"
+        integrity="sha256-T3bYsIPyOLpEfeZOX4M7J59ZoDMzuYFUsPiSN3Xcc2M=" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.1/cjs/popper.min.js"></script>
+
+<script crossorigin="anonymous"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 </html>

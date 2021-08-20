@@ -3,34 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Created Successfully</title>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" rel="stylesheet">
     <style type="text/css">
     span {
-        display: inline-block;
-        width: 200px;
-        text-align: left;
+      display: inline-block;
+      width: 200px;
+      text-align: left;
     }
+
+    .footer-container {
+      color: #EAF6F6;
+      padding-top: 20%;
+    }
+
+    .copyright {
+      color: #EAF6F6;
+      width: 100%;
+      margin-top: 20px;
+      padding-top: 15%;
+    }
+
     </style>
 </head>
-<body>
-<div class="container text-center">
-    <h2>Congratulations! You Have Created Space Successfully!</h2>
-    <span>Space Id:</span><span th:text="${spaceId}"></span><br/>
-    <span>Space Owner's username:</span><span th:text="${spaceOwnerUserName}"></span><br/>
-    <span>Space Name:</span><span th:text="${spaceName}"></span><br/>
-    <span>Space Description: </span><span th:text="${spaceDescription}"></span><br/>
-    <span>Baby Name: </span><span th:text="${babyName}"></span><br/>
-    <span>Baby's Gender: </span><span th:text="${babyGender}"></span><br/>
-    <span>Baby's Birthday: </span><span th:text="${babyBirthday}"></span><br/>
-    <span>Place of Residence: </span><span th:text="${babyResidence}"></span><br/>
-    <span>Created at: </span><span th:text="${spaceCreatedDateTime}"></span><br/>
+<body style="background-color:powderblue;">
+<div>
+    <nav th:replace="layout2::site-header"></nav>
 </div>
+<div class="container text-center" style="margin-top: 12%; padding-bottom: 20%;">
+    <div class="col-md-12">
+        <h2>Congratulations! You Have Created Space Successfully!</h2>
+        <div class="link">
+            <h4><a class="btn btn-outline-warning" role="button" style="margin-bottom: 20px"
+                   th:href="@{'/spaces/' + ${spaceId}}">Go to Your Space</a></h4>
+        </div>
+        <span>Space Id:</span><span th:text="${spaceId}"></span><br/>
+        <span>Space Owner's username:</span><span th:text="${spaceOwnerUserName}"></span><br/>
+        <span>Space Name:</span><span th:text="${spaceName}"></span><br/>
+        <span>Space Description: </span><span th:text="${spaceDescription}"></span><br/>
+        <span>Baby Name: </span><span th:text="${babyName}"></span><br/>
+        <span>Baby's Gender: </span><span th:text="${babyGender}"></span><br/>
+        <span>Baby's Birthday: </span><span th:text="${babyBirthday}"></span><br/>
+        <span>Place of Residence: </span><span th:text="${babyResidence}"></span><br/>
+        <span>Created at: </span><span th:text="${spaceCreatedDateTime}"></span><br/>
+        <span>Your Baby Profile Photo: </span>
+        <img th:if="${babyProfileImageUrl != null}" th:src="${babyProfileImageUrl}" width="150"/>
 
-<div class="link">
-    <h4><a th:href="@{'/spaces/' + ${spaceId}}">Go to your space</a></h4>
-</div>
-<div class="link">
-    <h4><a th:href="@{'/follows/' + ${userId}}">Check your followed spaces</a></h4>
-</div>
+    </div>
+    <footer th:replace="layout2::site-footer"></footer>
+
+
 </body>
 
 </html>

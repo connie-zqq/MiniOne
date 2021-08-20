@@ -10,12 +10,19 @@ import edu.northeastern.minione.model.User;
 public interface UserService {
 
     boolean authentication(String userName, String password);
+
     List<User> findAllUsers();
+
     Page<User> findAllUsers(Pageable pageable);
+
     User findUserByUserName(String userName);
+
     User findUserById(Long id);
+
     void createUser(User user);
+
     User editUser(User user);
+
     void deleteUserById(Long id);
 }
 

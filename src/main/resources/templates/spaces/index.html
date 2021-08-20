@@ -5,15 +5,73 @@
 <head>
     <meta charset="utf-8">
     <title th:text="${spaceName}"></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- My File CSS -->
-    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/space_styles.css" rel="stylesheet">
+    <style>
+        .mastfoot {
+          margin-top: 8%;
+          color: #808080;
+          margin-top: 8%;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          text-align: center;
+        }
 
+        .figure-list {
+          margin: 0;
+          padding: 0;
+        }
+
+        .figure-list:after {
+          content: "";
+          display: block;
+          clear: both;
+          height: 0;
+          overflow: hidden;
+          visibility: hidden;
+        }
+
+        .figure-list li {
+          list-style: none;
+          float: left;
+          width: 31.0%;
+          margin: 1% 1% 1% 1%;
+        }
+
+        .figure-list figure {
+          position: relative;
+          width: 100%;
+          height: 0;
+          overflow: hidden;
+          margin: 0;
+          padding-bottom: 100%;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+
+        .figure-list figure img {
+          display: block;
+          position: absolute;
+          width: 200px;
+          height: 200px;
+          object-fit: cover;
+          top: 0;
+          bottom: 0;
+        }
+
+
+    </style>
 </head>
 
-<body>
+<body style="background-color: #F6F6F6">
+<div>
+    <nav th:replace="layout2::site-header"></nav>
+</div>
 <div class="container">
     <div class="profile-page tx-13">
         <!--Profile Photo and Cover Photo-->
@@ -24,28 +82,31 @@
                         <div class="gray-shade"></div>
                         <figure>
                             <!--Profile Cover-->
-                            <img src="https://dg.imgix.net/do-you-think-you-re-happy-jgdbfiey-en/landscape/do-you-think-you-re-happy-jgdbfiey-9bb0198eeccd0a3c3c13aed064e2e2b3.jpg?ts=1520525855&ixlib=rails-4.2.0&auto=format%2Ccompress&fit=min&w=700&h=394&dpr=2&ch=Width%2CDPR"
-                                 class="img-fluid" alt="profile-cover">
+                            <img alt="profile-cover"
+                                 class="img-fluid" src="https://dg.imgix.net/do-you-think-you-re-happy-jgdbfiey-en/landscape/do-you-think-you-re-happy-jgdbfiey-9bb0198eeccd0a3c3c13aed064e2e2b3.jpg?ts=1520525855&ixlib=rails-4.2.0&auto=format%2Ccompress&fit=min&w=700&h=394&dpr=2&ch=Width%2CDPR">
                         </figure>
                         <div class="cover-body d-flex justify-content-between align-items-center">
                             <!--Profile Photo-->
                             <div>
-                                <img class="profile-pic" src="https://bootdey.com/img/Content/avatar/avatar6.png"
-                                     alt="profile-photo">
+                                <img alt="profile-photo" class="profile-pic"
+                                     th:if="${babyProfileImageUrl != null}"
+                                     th:src="${babyProfileImageUrl}">
+                                <img alt="profile-default-photo" class="profile-pic"
+                                     th:src="@{/img/default-baby-avatar.png}"
+                                     th:unless="${babyProfileImageUrl != null}">
                                 <span class="profile-name" th:text="${babyName}"></span>
-                                <span class="baby-age" th:text="${babyAge}"></span>
                             </div>
                             <div class="d-none d-md-block">
                                 <!-- Edit Profile-->
                                 <button class="btn btn-primary btn-icon-text btn-edit-profile">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-edit btn-icon-prepend">
+                                    <svg class="feather feather-edit btn-icon-prepend" fill="none" height="24" stroke="currentColor"
+                                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                         width="24" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                     </svg>
                                     <a class="create-moment-link"
-                                       th:href="@{'/spaces/' + ${spaceId} +'/moments/add-moment'}">Create Moment</a>
+                                       th:href="@{'/spaces/' + ${spaceId} +'/moments/add-moment'}">Add Moment</a>
                                 </button>
                             </div>
                         </div>
@@ -54,34 +115,37 @@
                     <div class="header-links">
                         <ul class="links d-flex align-items-center mt-3 mt-md-0">
                             <li class="header-link-item ml-3 pl-3 border-left d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-user mr-1 icon-md">
+                                <svg class="feather feather-user mr-1 icon-md" fill="none" height="24" stroke="currentColor"
+                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                     width="24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
                                 <a class="pt-1px d-none d-md-block" href="#">About Me</a>
                             </li>
                             <li class="header-link-item ml-3 pl-3 border-left d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-users mr-1 icon-md">
+                                <svg class="feather feather-users mr-1 icon-md" fill="none" height="24" stroke="currentColor"
+                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                     width="24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                                     <circle cx="9" cy="7" r="4"></circle>
                                     <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                                     <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                                 </svg>
-                                <a class="pt-1px d-none d-md-block" href="#">Families <span class="text-muted tx-12" th:text="${numOfFollowers}"></span></a>
+                                <a class="pt-1px d-none d-md-block" th:href="@{'/spaces/' + ${spaceId} + '/followers'}">My
+                                    Family
+                                    <span class="text-muted tx-12" th:text="${numOfFollowers}"></span></a>
                             </li>
                             <li class="header-link-item ml-3 pl-3 border-left d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-image mr-1 icon-md">
-                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <svg class="feather feather-image mr-1 icon-md" fill="none" height="24" stroke="currentColor"
+                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                     width="24" xmlns="http://www.w3.org/2000/svg">
+                                    <rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect>
                                     <circle cx="8.5" cy="8.5" r="1.5"></circle>
                                     <polyline points="21 15 16 10 5 21"></polyline>
                                 </svg>
-                                <a class="pt-1px d-none d-md-block" href="#">Photos</a>
+                                <a class="pt-1px d-none d-md-block"
+                                   th:href="@{'/spaces/' + ${spaceId} + '/photo-wall'}">Photos</a>
                             </li>
                         </ul>
                     </div>
@@ -97,23 +161,23 @@
                             <h6 class="card-title mb-0">Space Description</h6>
                             <!-- drop down-->
                             <div class="dropdown">
-                                <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round"
-                                         class="feather feather-more-horizontal icon-lg text-muted pb-3px">
+                                <button aria-expanded="false" aria-haspopup="true" class="btn p-0" data-toggle="dropdown"
+                                        id="dropdownMenuButton" type="button">
+                                    <svg class="feather feather-more-horizontal icon-lg text-muted pb-3px" fill="none" height="24" stroke="currentColor"
+                                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                         width="24"
+                                         xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="12" cy="12" r="1"></circle>
                                         <circle cx="19" cy="12" r="1"></circle>
                                         <circle cx="5" cy="12" r="1"></circle>
                                     </svg>
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
                                     <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                             stroke-linecap="round" stroke-linejoin="round"
-                                             class="feather feather-edit-2 icon-sm mr-2">
+                                        <svg class="feather feather-edit-2 icon-sm mr-2" fill="none" height="24"
+                                             stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                             viewBox="0 0 24 24" width="24"
+                                             xmlns="http://www.w3.org/2000/svg">
                                             <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
                                         </svg>
                                         <span class="">Edit</span></a>
@@ -128,7 +192,8 @@
                         </div>
                         <div class="mt-3">
                             <label class="tx-11 font-weight-bold mb-0 text-uppercase">Joined:</label>
-                            <p class="text-muted" th:text="${#dates.format(spaceCreatedDateTime, 'yyyy-MM-dd hh:mm')}"></p>
+                            <p class="text-muted"
+                               th:text="${#dates.format(spaceCreatedDateTime, 'yyyy-MM-dd hh:mm')}"></p>
                         </div>
                     </div>
                 </div>
@@ -142,31 +207,38 @@
                             <div class="card-header">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div class="d-flex align-items-center">
-                                        <img class="img-xs rounded-circle"
-                                             src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+                                        <!-- author image of the moment-->
+                                        <img alt="user-img"
+                                             class="img-xs rounded-circle"
+                                             th:if="${m.author.userImageSignedUrl != null}" th:src="${m.author.userImageSignedUrl}">
+                                        <img alt="user-default-img"
+                                             class="img-xs rounded-circle"
+                                             th:src="@{/img/default-user.png}" th:unless="${m.author.userImageSignedUrl != null}">
                                         <div class="ml-2">
-                                            <p class="tx-11 text-muted"
-                                               th:text="${m.author.firstName} + ', ' + ${#dates.format(m.createdDateTime, 'yyyy-MM-dd hh:mm')}"></p>
+                                            <p class="tx-11 text-muted moment-author-and-date"
+                                               th:text="${m.author.firstName} + ', ' + ${#dates.format(m.createdDateTime, 'yyyy-MM-dd kk:mm')}"></p>
                                         </div>
                                     </div>
                                     <div class=" dropdown">
-                                        <button class="btn p-0" type="button" id="dropdownMenuButton2"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                 class="feather feather-more-horizontal icon-lg pb-3px">
+                                        <button aria-expanded="false" aria-haspopup="true" class="btn p-0"
+                                                data-toggle="dropdown" id="dropdownMenuButton2" type="button">
+                                            <svg class="feather feather-more-horizontal icon-lg pb-3px" fill="none" height="24"
+                                                 stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                 stroke-width="2" viewBox="0 0 24 24" width="24"
+                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="12" cy="12" r="1"></circle>
                                                 <circle cx="19" cy="12" r="1"></circle>
                                                 <circle cx="5" cy="12" r="1"></circle>
                                             </svg>
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                     stroke-linecap="round" stroke-linejoin="round"
-                                                     class="feather feather-edit-2 icon-sm mr-2">
+                                        <div aria-labelledby="dropdownMenuButton2" class="dropdown-menu">
+                                            <a class="dropdown-item d-flex align-items-center"
+                                               th:href="@{'/spaces/' + ${spaceId} + '/edit-moment/' + ${m.id}}">
+                                                <svg class="feather feather-edit-2 icon-sm mr-2" fill="none" height="24"
+                                                     stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                     stroke-width="2"
+                                                     viewBox="0 0 24 24" width="24"
+                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
                                                 </svg>
                                                 <span class="">Edit</span></a>
@@ -175,42 +247,108 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <img class="img-fluid" th:src="${m.photos[0].signedUrl}" alt="">
-                                <p class="mb-3 tx-14 moment-title" th:text="${m.momentTitle ne null} ? ${m.momentTitle} : ''"></p>
+                                <!-- moment photos -->
+                                <ul class="figure-list" style="width: 100%;"
+                                    th:if="${!m.photos.empty} and ${m.photos.size() > 1}">
+                                    <li th:each="img: ${m.photos}">
+                                        <figure>
+                                            <img th:if="${img.signedUrl != null}" th:src="${img.signedUrl}">
+                                        </figure>
+                                    </li>
+                                </ul>
+                                <img alt="" class="img-fluid"
+                                     th:if="${!m.photos.empty} and ${m.photos.size() == 1}"
+                                     th:src="${m.photos[0].signedUrl}">
+                                <p class="mb-3 tx-14 moment-title"
+                                   th:text="${m.momentTitle ne null} ? ${m.momentTitle} : ''"></p>
                                 <p class="mb-3 tx-14 moment-content" th:text="${m.momentContent}"></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex post-actions">
-                                    <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                             stroke-linecap="round" stroke-linejoin="round"
-                                             class="feather feather-heart icon-md">
+                                    <a class="d-flex align-items-center text-muted mr-4"
+                                       th:href="@{'/spaces/' + ${spaceId} + '/moments/' + ${m.id} + '/like'}">
+                                        <svg class="feather feather-heart icon-md" fill="none"
+                                             height="24" stroke="currentColor"
+                                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2" th:if="${m.isLiked()} == false"
+                                             viewBox="0 0 24 24" width="24"
+                                             xmlns="http://www.w3.org/2000/svg">
                                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                                         </svg>
-                                        <p class="d-none d-md-block ml-2">Like</p>
+                                        <svg class="feather feather-heart icon-md" fill="red"
+                                             height="24" stroke="currentColor"
+                                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2" th:if="${m.isLiked()} == true"
+                                             viewBox="0 0 24 24" width="24"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                        </svg>
+                                        <p class="d-none d-md-block ml-2 moment-action">Like</p>
                                     </a>
-                                    <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                             stroke-linecap="round" stroke-linejoin="round"
-                                             class="feather feather-message-square icon-md">
+                                    <a class="d-flex align-items-center text-muted mr-4"
+                                       th:href="@{'/spaces/' + ${spaceId} +'/moments/' + ${m.id} + '/add-comments'}">
+                                        <svg class="feather feather-message-square icon-md" fill="none" height="24"
+                                             stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                             viewBox="0 0 24 24" width="24"
+                                             xmlns="http://www.w3.org/2000/svg">
                                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                                         </svg>
-                                        <p class="d-none d-md-block ml-2">Comment</p>
+                                        <p class="d-none d-md-block ml-2 moment-action">Comment</p>
                                     </a>
-                                    <a href="javascript:;" class="d-flex align-items-center text-muted">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                             stroke-linecap="round" stroke-linejoin="round"
-                                             class="feather feather-share icon-md">
-                                            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                                            <polyline points="16 6 12 2 8 6"></polyline>
-                                            <line x1="12" y1="2" x2="12" y2="15"></line>
-                                        </svg>
-                                        <p class="d-none d-md-block ml-2">Share</p>
-                                    </a>
+                                    <!-- share (Todo) -->
+                                    <!--                                    <a href="javascript:;" class="d-flex align-items-center text-muted">-->
+                                    <!--                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"-->
+                                    <!--                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"-->
+                                    <!--                                             stroke-linecap="round" stroke-linejoin="round"-->
+                                    <!--                                             class="feather feather-share icon-md">-->
+                                    <!--                                            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>-->
+                                    <!--                                            <polyline points="16 6 12 2 8 6"></polyline>-->
+                                    <!--                                            <line x1="12" y1="2" x2="12" y2="15"></line>-->
+                                    <!--                                        </svg>-->
+                                    <!--                                        <p class="d-none d-md-block ml-2 moment-action">Share</p>-->
+                                    <!--                                    </a>-->
                                 </div>
+                            </div>
+                            <div class="card-footer" th:if="${m.momentFansString != null}">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <!-- like heart image-->
+                                        <img alt="heart-like"
+                                             class="img-xs rounded-circle like-heart" th:src="@{/img/heart-like.png}">
+                                        <div class="ml-2">
+                                            <p class="tx-11 text-muted like-list" th:if="${m.likes.size() == 1}"
+                                               th:text="${m.momentFansString} + ' Likes!'"></p>
+                                            <p class="tx-11 text-muted like-list" th:if="${m.likes.size() > 1}"
+                                               th:text="${m.momentFansString} + ' Like!'"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer" th:if="${!m.comments.empty}">
+                                <ul class="comments-list" th:each="c:${m.comments}">
+                                    <li class="comment">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <!-- user profile image-->
+                                                <img alt="user-img" class="img-xs rounded-circle"
+                                                     style="margin-bottom: 10%;"
+                                                     th:if="${c.author.userImageSignedUrl != null}" th:src="${c.author.userImageSignedUrl}">
+                                                <img alt="user-default-img" class="img-xs rounded-circle"
+                                                     style="margin-bottom: 10%;"
+                                                     th:src="@{/img/default-user.png}" th:unless="${c.author.userImageSignedUrl != null}">
+                                                <div class="ml-2">
+                                                    <div class="comment-body">
+                                                        <div class="comment-heading">
+                                                            <p class="user" th:text="${c.author.firstName}"></p>
+                                                            <p class="time" th:text="${c.getTimeAgo()}"></p>
+                                                            <div>
+                                                                <p th:text="${c.commentContent}"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -218,27 +356,27 @@
                 <div class="col-md-12">
                     <ul class="pagination justify-content-center">
                         <li th:class="${moments.number eq 0} ? 'page-item disabled' : 'page-item'">
-                            <a class="page-link" th:if="${not moments.first}"
-                               th:with="userSpaceUrl=('/spaces/' + ${spaceId})"
-                               th:href="@{${userSpaceUrl}(page=${moments.number-1})}">&laquo;</a>
-                            <a class="page-link" th:if="${moments.first}" href="#">&laquo;</a>
+                            <a class="page-link" th:href="@{${userSpaceUrl}(page=${moments.number-1})}"
+                               th:if="${not moments.first}"
+                               th:with="userSpaceUrl=('/spaces/' + ${spaceId})">&laquo;</a>
+                            <a class="page-link" href="#" th:if="${moments.first}">&laquo;</a>
                         </li>
-                        <li th:each="pageNo : ${#numbers.sequence(0, moments.totalPages - 1)}"
-                            th:class="${moments.number eq pageNo} ? 'page-item active' : 'page-item'">
-                            <a class="page-link" th:if="${moments.number eq pageNo}" href="#">
+                        <li th:class="${moments.number eq pageNo} ? 'page-item active' : 'page-item'"
+                            th:each="pageNo : ${#numbers.sequence(0, moments.totalPages - 1)}">
+                            <a class="page-link" href="#" th:if="${moments.number eq pageNo}">
                                 <span th:text="${pageNo + 1}"></span>
                             </a>
-                            <a class="page-link" th:if="${not (moments.number eq pageNo)}"
-                               th:with="userSpaceUrl=('/spaces/' + ${spaceId})"
-                               th:href="@{${userSpaceUrl}(page=${pageNo})}">
+                            <a class="page-link" th:href="@{${userSpaceUrl}(page=${pageNo})}"
+                               th:if="${not (moments.number eq pageNo)}"
+                               th:with="userSpaceUrl=('/spaces/' + ${spaceId})">
                                 <span th:text="${pageNo + 1}"></span>
                             </a>
                         </li>
                         <li th:class="${moments.number + 1 ge moments.totalPages} ? 'page-item disabled' : 'page-item'">
-                            <a class="page-link" th:if="${not moments.last}"
-                               th:with="userSpaceUrl=('/spaces/' + ${spaceId})"
-                               th:href="@{${userSpaceUrl}(page=${moments.number+1})}">&raquo;</a>
-                            <a class="page-link" th:if="${moments.last}" href="#">&raquo;</a>
+                            <a class="page-link" th:href="@{${userSpaceUrl}(page=${moments.number+1})}"
+                               th:if="${not moments.last}"
+                               th:with="userSpaceUrl=('/spaces/' + ${spaceId})">&raquo;</a>
+                            <a class="page-link" href="#" th:if="${moments.last}">&raquo;</a>
                         </li>
                     </ul><!-- ./ pagination -->
                 </div><!-- ./ col-md-7 -->
@@ -250,72 +388,37 @@
                     <div class="col-md-12 grid-margin">
                         <div class="card rounded">
                             <div class="card-body">
-                                <h6 class="card-title">latest photos</h6>
+                                <h6 class="card-title">The Stage of Development</h6>
                                 <div class="latest-photos">
                                     <div class="row">
-                                        <div class="col-md-4">
-                                            <figure>
-                                                <img class="img-fluid"
-                                                     src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                     alt="">
-                                            </figure>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <figure>
-                                                <img class="img-fluid"
-                                                     src="https://bootdey.com/img/Content/avatar/avatar2.png"
-                                                     alt="">
-                                            </figure>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <figure>
-                                                <img class="img-fluid"
-                                                     src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                                                     alt="">
-                                            </figure>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <figure>
-                                                <img class="img-fluid"
-                                                     src="https://bootdey.com/img/Content/avatar/avatar4.png"
-                                                     alt="">
-                                            </figure>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <figure>
-                                                <img class="img-fluid"
-                                                     src="https://bootdey.com/img/Content/avatar/avatar5.png"
-                                                     alt="">
-                                            </figure>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <figure>
-                                                <img class="img-fluid"
-                                                     src="https://bootdey.com/img/Content/avatar/avatar6.png"
-                                                     alt="">
-                                            </figure>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <figure class="mb-0">
-                                                <img class="img-fluid"
-                                                     src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                                                     alt="">
-                                            </figure>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <figure class="mb-0">
-                                                <img class="img-fluid"
-                                                     src="https://bootdey.com/img/Content/avatar/avatar8.png"
-                                                     alt="">
-                                            </figure>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <figure class="mb-0">
-                                                <img class="img-fluid"
-                                                     src="https://bootdey.com/img/Content/avatar/avatar9.png"
-                                                     alt="">
-                                            </figure>
-                                        </div>
+                                        <img alt="infant-girl"
+                                             class="img-fluid"
+                                             th:if="${babyDevStage == 'Infants'} and ${babyGender == 'Female'}"
+                                             th:src="@{/img/infant-girl.jpg}">
+                                        <img alt="infant-boy"
+                                             class="img-fluid"
+                                             th:if="${babyDevStage == 'Infants'} and ${babyGender == 'Male'}"
+                                             th:src="@{/img/infant-boy.jpg}">
+                                        <img alt="toddler" class="img-fluid"
+                                             th:if="${babyDevStage == 'Toddlers'}"
+                                             th:src="@{/img/toddler.png}">
+                                        <img alt="preschooler" class="img-fluid"
+                                             th:if="${babyDevStage == 'Preschoolers'}"
+                                             th:src="@{/img/preschool.jpeg}">
+                                        <img alt="middle-child" class="img-fluid"
+                                             th:if="${babyDevStage == 'Middle Childhood'}"
+                                             th:src="@{/img/middle.jpeg}">
+                                        <img alt="teen" class="img-fluid"
+                                             th:if="${babyDevStage == 'Teens'}"
+                                             th:src="@{/img/teen.jpg}">
+                                        <img alt="young-adult" class="img-fluid"
+                                             th:if="${babyDevStage == 'Young Adults'}"
+                                             th:src="@{/img/college.jpeg}">
+                                        <img alt="adult" class="img-fluid"
+                                             th:if="${babyDevStage == 'Adults'}"
+                                             th:src="@{/img/adult.jpeg}">
+                                        <span class="baby-age" th:text="${babyAge}"></span>
+                                        <span class="baby-stage" th:text="(${babyDevStage})"></span>
                                     </div>
                                 </div>
                             </div>
@@ -327,16 +430,18 @@
         </div>
     </div>
 </div>
+<footer class="mastfoot">
+    <div class="inner">
+        <p>© 2021 MiniOne developed by Qiangqiang Zhang and Shujun Xiao.</p>
+    </div>
+</footer>
 
+</body>
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript">
-
-
-</script>
-</body>
+<script type="text/javascript"></script>
 
 </html>
 
