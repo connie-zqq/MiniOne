@@ -1,4 +1,4 @@
-package edu.northeastern.minione.model;
+package edu.northeastern.minione.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

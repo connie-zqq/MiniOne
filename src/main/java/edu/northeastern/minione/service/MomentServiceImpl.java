@@ -8,9 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import edu.northeastern.minione.model.AmazonImage;
-import edu.northeastern.minione.model.Moment;
-import edu.northeastern.minione.model.Space;
+import edu.northeastern.minione.entity.AmazonImage;
+import edu.northeastern.minione.entity.Moment;
+import edu.northeastern.minione.entity.Space;
 import edu.northeastern.minione.repository.FollowRepository;
 import edu.northeastern.minione.repository.MomentRepository;
 import edu.northeastern.minione.repository.SpaceRepository;
@@ -21,6 +21,7 @@ import edu.northeastern.minione.repository.SpaceRepository;
 @Service
 public class MomentServiceImpl implements MomentService {
 
+    // allow
     @Autowired
     SpaceRepository spaceRepository;
 

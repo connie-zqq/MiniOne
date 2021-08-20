@@ -8,9 +8,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import edu.northeastern.minione.model.User;
+import edu.northeastern.minione.entity.User;
 import edu.northeastern.minione.repository.UserRepository;
 
+/**
+ * This is a class that implements the user service.
+ */
 @Service
 public class UserServiceImpl implements UserService {
 

@@ -5,8 +5,12 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import edu.northeastern.minione.model.User;
+import edu.northeastern.minione.entity.User;
 
+
+/**
+ * This is the UserService interface.
+ */
 public interface UserService {
 
     boolean authentication(String userName, String password);

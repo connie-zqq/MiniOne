@@ -1,4 +1,4 @@
-package edu.northeastern.minione.model;
+package edu.northeastern.minione.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +22,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 /**
  * This is the moment class, which is a JPA entity that maps to a "moments" table in the database.
+ * The Moment model defines the structure/format in which the data has to be stored in the database "moments".
  */
 @Entity
 @Table(name = "moments")

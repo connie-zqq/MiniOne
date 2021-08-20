@@ -8,10 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import edu.northeastern.minione.model.Moment;
+import edu.northeastern.minione.entity.Moment;
 
 /**
  * Create the interface MomentRepository.
+ * The repository allows us to access the information stored in the database.
  */
 @Repository
 public interface MomentRepository extends JpaRepository<Moment, Long> {
@@ -19,6 +20,8 @@ public interface MomentRepository extends JpaRepository<Moment, Long> {
     /**
      * Find out all the moments that indexed with the input space id
      * and store the info in the input pageable variable.
+     * In that case the method name below creates property traversal x.space.id
+     * ("Property Expression")
      *
      * @param id The space id of the moment
      * @param pageable A Pageable variable that stores the result

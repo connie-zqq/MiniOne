@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import edu.northeastern.minione.model.Comment;
-import edu.northeastern.minione.model.Like;
-import edu.northeastern.minione.model.Moment;
-import edu.northeastern.minione.model.User;
+import edu.northeastern.minione.entity.Comment;
+import edu.northeastern.minione.entity.Like;
+import edu.northeastern.minione.entity.Moment;
+import edu.northeastern.minione.entity.User;
 
 /**
  * This is the CommentService interface.

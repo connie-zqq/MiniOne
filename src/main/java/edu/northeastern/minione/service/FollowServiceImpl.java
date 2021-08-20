@@ -10,10 +10,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import edu.northeastern.minione.model.Follow;
-import edu.northeastern.minione.model.Invitation;
-import edu.northeastern.minione.model.Space;
-import edu.northeastern.minione.model.User;
+import edu.northeastern.minione.entity.Follow;
+import edu.northeastern.minione.entity.Invitation;
+import edu.northeastern.minione.entity.Space;
+import edu.northeastern.minione.entity.User;
 import edu.northeastern.minione.repository.FollowRepository;
 import edu.northeastern.minione.repository.InvitationRepository;
 

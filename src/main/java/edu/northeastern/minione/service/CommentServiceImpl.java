@@ -7,10 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import edu.northeastern.minione.model.Comment;
-import edu.northeastern.minione.model.Like;
-import edu.northeastern.minione.model.Moment;
-import edu.northeastern.minione.model.User;
+import edu.northeastern.minione.entity.Comment;
+import edu.northeastern.minione.entity.Like;
+import edu.northeastern.minione.entity.Moment;
+import edu.northeastern.minione.entity.User;
 import edu.northeastern.minione.repository.CommentRepository;
 import edu.northeastern.minione.repository.LikeRepository;
 

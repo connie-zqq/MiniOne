@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import edu.northeastern.minione.model.AmazonImage;
-import edu.northeastern.minione.model.Moment;
-import edu.northeastern.minione.model.Space;
+import edu.northeastern.minione.entity.AmazonImage;
+import edu.northeastern.minione.entity.Moment;
+import edu.northeastern.minione.entity.Space;
 
 /**
  * This is the MomentService interface.

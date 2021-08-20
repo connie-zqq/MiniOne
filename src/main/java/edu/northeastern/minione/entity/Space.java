@@ -1,4 +1,4 @@
-package edu.northeastern.minione.model;
+package edu.northeastern.minione.entity;
 
 import java.time.Instant;
 import java.time.LocalDate;

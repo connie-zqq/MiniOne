@@ -17,10 +17,10 @@ import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
-import edu.northeastern.minione.model.AmazonImage;
-import edu.northeastern.minione.model.Moment;
-import edu.northeastern.minione.model.Space;
-import edu.northeastern.minione.model.User;
+import edu.northeastern.minione.entity.AmazonImage;
+import edu.northeastern.minione.entity.Moment;
+import edu.northeastern.minione.entity.Space;
+import edu.northeastern.minione.entity.User;
 import edu.northeastern.minione.repository.AmazonImageRepository;
 import edu.northeastern.minione.repository.SpaceRepository;
 import edu.northeastern.minione.repository.UserRepository;

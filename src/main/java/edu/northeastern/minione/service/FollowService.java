@@ -2,10 +2,10 @@ package edu.northeastern.minione.service;
 
 import java.util.List;
 
-import edu.northeastern.minione.model.Follow;
-import edu.northeastern.minione.model.Invitation;
-import edu.northeastern.minione.model.Space;
-import edu.northeastern.minione.model.User;
+import edu.northeastern.minione.entity.Follow;
+import edu.northeastern.minione.entity.Invitation;
+import edu.northeastern.minione.entity.Space;
+import edu.northeastern.minione.entity.User;
 
 /**
  * This is the FollowService interface.

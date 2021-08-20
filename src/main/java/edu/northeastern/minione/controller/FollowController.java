@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.northeastern.minione.model.Invitation;
-import edu.northeastern.minione.model.Space;
-import edu.northeastern.minione.model.User;
+import edu.northeastern.minione.entity.Invitation;
+import edu.northeastern.minione.entity.Space;
+import edu.northeastern.minione.entity.User;
 import edu.northeastern.minione.service.FollowService;
 import edu.northeastern.minione.service.MomentService;
 import edu.northeastern.minione.service.UserService;

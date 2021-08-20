@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.northeastern.minione.forms.LoginForm;
-import edu.northeastern.minione.model.User;
+import edu.northeastern.minione.entity.User;
 import edu.northeastern.minione.service.AmazonClientService;
 import edu.northeastern.minione.service.AmazonS3ImageService;
 import edu.northeastern.minione.service.UserService;

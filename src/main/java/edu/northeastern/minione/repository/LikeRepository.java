@@ -3,9 +3,9 @@ package edu.northeastern.minione.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import edu.northeastern.minione.model.Like;
-import edu.northeastern.minione.model.Moment;
-import edu.northeastern.minione.model.User;
+import edu.northeastern.minione.entity.Like;
+import edu.northeastern.minione.entity.Moment;
+import edu.northeastern.minione.entity.User;
 
 /**
  * Create the interface LikeRepository.

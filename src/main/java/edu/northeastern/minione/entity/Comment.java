@@ -1,4 +1,4 @@
-package edu.northeastern.minione.model;
+package edu.northeastern.minione.entity;
 
 import java.util.Date;
 
@@ -86,7 +86,7 @@ public class Comment {
      *
      * @return Moment The moment that this comment is about
      */
-    public Moment getMoment() {
+    public Moment getCommentedMoment() {
         return commentedMoment;
     }
 
@@ -95,7 +95,7 @@ public class Comment {
      *
      * @param commentedMoment The moment that this comment is about
      */
-    public void setMoment(Moment commentedMoment) {
+    public void setCommentedMoment(Moment commentedMoment) {
         this.commentedMoment = commentedMoment;
     }
 
