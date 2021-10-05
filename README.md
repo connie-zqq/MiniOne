@@ -2,6 +2,8 @@
 
 ## 01 What is MiniOne?
 
+- A Family Photo Sharing Web Application with Spring Boot and Spring MVC
+
 - This app just like a “private space” of the family
 
 - Each registered & login user can create his/her spaces to share life stories with family and friends by adding moments and posting photos.
