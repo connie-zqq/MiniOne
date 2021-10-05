@@ -23,5 +23,9 @@
 
 ## 03 Spring MVC Architecture
 
+![Picture1](https://user-images.githubusercontent.com/60984454/136098021-110efdbf-e97f-47e7-9efe-70645816f59b.png)
+
 ## 04 Database Schema
+
+![drawSQL-export-2021-08-19_20_18](https://user-images.githubusercontent.com/60984454/136098315-92e906cf-037b-4bb9-97d0-48dde2d27602.png)
 
